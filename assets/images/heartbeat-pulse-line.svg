@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 80" fill="none" preserveAspectRatio="none">
+  <path id="heartbeatPath" d="M0 40 H150 L170 40 L185 10 L205 70 L222 40 L240 40 L255 25 L270 40 H600"
+    stroke="#0f6e6e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

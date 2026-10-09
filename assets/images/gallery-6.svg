@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<rect width="400" height="300" fill="#eaf5f5"/>
+<path d="M0 180L140 100 240 160 400 80V300H0Z" fill="#0f6e6e" opacity="0.4"/>
+<text x="200" y="270" font-family="Poppins, sans-serif" font-size="16" fill="#0a4f4f" text-anchor="middle">Gallery Photo 6</text>
+</svg>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<rect width="400" height="300" fill="#dff0f0"/>
+<rect x="60" y="80" width="280" height="140" rx="16" fill="#0f6e6e" opacity="0.4"/>
+<circle cx="340" cy="60" r="24" fill="#e8a33d"/>
+<text x="200" y="270" font-family="Poppins, sans-serif" font-size="16" fill="#0a4f4f" text-anchor="middle">Gallery Photo 5</text>
+</svg>
