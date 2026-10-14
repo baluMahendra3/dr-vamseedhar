@@ -858,15 +858,32 @@ h2.center.is-visible::after { transform: translateX(-50%) scaleX(1); }
 }
 
 @media (max-width: 720px) {
-  .cards-grid { grid-template-columns: 1fr; }
-  .gallery-grid { grid-template-columns: 1fr; }
-  .why-grid { grid-template-columns: 1fr; }
+  .cards-grid { grid-template-columns: 1fr; gap: 16px; }
+  .gallery-grid { grid-template-columns: 1fr; gap: 14px; }
+  .why-grid { grid-template-columns: 1fr; gap: 14px; margin-top: 26px; }
   .trust-badge { width: 84px; height: 84px; left: 10px; bottom: -16px; }
-  h1 { font-size: 2rem; }
+  h1 { font-size: 1.8rem; }
+  h2 { font-size: 1.5rem; margin-bottom: 14px; }
+  .section-intro { margin: 0 auto 26px; font-size: 0.92rem; }
+  .section-tag { margin-bottom: 6px; }
   .decor-icon { font-size: 1.6rem; opacity: 0.12; }
-  .section { padding: 56px 0; }
-  .hero { padding: 48px 0 70px; }
-  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .container { padding: 0 18px; }
+  .section { padding: 44px 0; }
+  .hero { padding: 36px 0 52px; }
+  .hero-text h1 { font-size: 1.8rem; margin-bottom: 12px; }
+  .hero-sub { margin-bottom: 20px; }
+  .hero-actions { margin-bottom: 14px; gap: 12px; }
+  .hero-inner { gap: 28px; }
+  .stats { padding: 32px 0; }
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 16px 12px; }
+  .stat-icon { font-size: 1.4rem; margin-bottom: 4px; }
+  .stat-number { font-size: 1.6rem; }
+  .stat-plus { font-size: 1.1rem; }
+  .stat-card p { font-size: 0.78rem; margin-top: 2px; }
+  .about-grid, .contact-grid { gap: 28px; }
+  .cards-grid, .gallery-grid { gap: 14px; }
+  .faq-list { margin: 26px auto 0; gap: 10px; }
+  .why-card { padding: 22px 16px; }
 }
 
 /* Very small phones (e.g. iPhone SE 1st gen, 320px) */
@@ -875,9 +892,15 @@ h2.center.is-visible::after { transform: translateX(-50%) scaleX(1); }
   .brand { font-size: 0.82rem; gap: 6px; }
   .brand-logo { width: 26px; height: 26px; }
   .nav-toggle { padding: 6px; }
-  h1 { font-size: 1.7rem; }
-  .hero-sub { font-size: 0.92rem; }
+  h1 { font-size: 1.6rem; }
+  h2 { font-size: 1.3rem; }
+  .hero-sub { font-size: 0.88rem; }
   .btn { padding: 12px 20px; font-size: 0.88rem; }
+  .section { padding: 36px 0; }
+  .hero { padding: 30px 0 44px; }
+  .stats-grid { gap: 14px 10px; }
+  .stat-number { font-size: 1.4rem; }
+  .stat-icon { font-size: 1.2rem; }
 }
 
 /* ========== Reduced Motion ========== */
