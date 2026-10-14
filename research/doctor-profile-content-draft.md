@@ -109,7 +109,8 @@ Items already built into the site but waiting on real data/confirmation before g
 
 | Item | Where it lives | Status |
 |---|---|---|
-| Real WhatsApp number | Floating button (`wa.me/91XXXXXXXXXX`), site-wide | ⏳ Placeholder — confirm number |
+| Real WhatsApp number | Floating button, site-wide (EN & Telugu) | ✅ Confirmed by client: +91 99123 08801 — now live |
+| Real phone & email | Contact section, schema `telephone`/`email` (EN & Telugu) | ✅ Confirmed by client: +91 99123 08801 / vamseedharkonati@gmail.com — now live |
 | Formspree form activation | Contact form (both EN & Telugu pages) | ⏳ Needs account signup at formspree.io using vamseedharkonati@gmail.com, then swap `YOUR_FORM_ID` in both `index.html` and `te/index.html` |
 | Facebook / LinkedIn / YouTube URLs | Footer social icons (both EN & Telugu pages) | ⏳ Placeholder `href="#"` — swap in real profile URLs once confirmed |
 | Real photo for `og:image` | Social share preview (Facebook/WhatsApp/LinkedIn link previews) | ⏳ Currently SVG placeholder — SVG does NOT render in link previews, needs a real JPG/PNG (1200×630px recommended) once photos are available |
@@ -118,30 +119,26 @@ Items already built into the site but waiting on real data/confirmation before g
 
 ---
 
-## 7. Third-party listing cross-check (Oct 2026)
+## 7. Third-party listing cross-check (Oct 2026) — SUPERSEDED, see correction below
 
-Dr. Konati already has public profiles on a few aggregator/hospital sites. Cross-referencing them turned up real, usable facts — now merged into the site — plus some conflicts that still need the doctor's own confirmation.
+Dr. Konati has public profiles on a few aggregator/hospital sites (Ankura Hospitals, HexaHealth, Justdial). Cross-referencing them initially suggested he practices at "Ankura Hospital" as his second hospital. **The client corrected this directly: his second hospital is NOT Ankura Hospital — it is Helios Hospitals Multi Super Speciality Hospital.** All Ankura-specific data (address, phone, map links) has been removed from the site and replaced with verified Google Maps data for the correct two hospitals:
 
-**Confirmed and now live on the site** (agreed by 2+ independent sources, or an official hospital's own profile):
-| Fact | Source(s) | Where it's now used |
-|---|---|---|
-| MBBS & MS (General Surgery) from **S.V. Medical College, Tirupati** | Ankura Hospitals (official) + HexaHealth | Qualifications timeline |
-| PDDC (Post Doctoral Diploma Course) — Surgical Gastroenterology, **S.V.I.M.S. University, Tirupati, 2010** | Ankura Hospitals (official profile) — single source | Qualifications timeline + Physician schema `alumniOf` |
-| Languages: **English, Telugu, Hindi** | Ankura Hospitals (official profile) | FAQ answer + schema (previously a placeholder) |
-| Hospital affiliation: **Helios Hospital** = our "Mother Hospital (mHelios)" | HexaHealth | Confirms existing Hospitals section entry |
-| Additional confirmed procedures: laser piles surgery, HAL-RAR, GERD surgery, mastectomy, circumcision, endoscopic sleeve gastroplasty | HexaHealth "Top Treatments" list | Expanded Expertise cards + schema `availableService` |
-| **Ankura Hospital full address**: H No. 19-3-14/N, Ward No. 19, Block No. 3, Renigunta Rd, P&T Colony, Tirupati, Andhra Pradesh 517501, phone +91 9053 108 108 | Ankura Hospitals' own Tirupati location page (official) | Hospital card + Contact section + map embeds + schema `streetAddress`/`postalCode`/`telephone` |
-| **Mother Hospital (mHelios) OPD timing**: Mon–Sat, 10:00 AM–8:00 PM (single continuous slot) | HexaHealth | Replaced the earlier fabricated two-slot "sample timing" |
-| **Mother Hospital (mHelios) partial address**: "18-2-148" (door number only, street/area name not shown on any source) | HexaHealth | Added as "Door No. 18-2-148" with a flag that the street/area is still unconfirmed |
+| Hospital | Verified address (Google Maps) | Phone | Maps link |
+|---|---|---|---|
+| **Mother Hospital** | Sai Ram Street, Old Maternity Hospital Rd, Nehru Nagar, Tirupati, Andhra Pradesh 517501 | 0877 228 6112 (hospital reception, motherhospital.in) | https://maps.app.goo.gl/vcxPJyHvmUAKBtEx6 |
+| **Helios Hospitals Multi Super Speciality Hospital** | 1-11, Karakambadi Rd, Mangalam, Chennayyagunta, Tirupati, Andhra Pradesh 517509 | 073311 23638 (hospital reception, helioshospitals.co.in) | https://maps.app.goo.gl/swesGhy3EpbMwosh7 |
 
-**Still only 2 confirmed hospitals, not 3** — if there's a third practice location (e.g. a personal clinic), please tell me its name so I can add a proper map pin for it too; I didn't want to guess and publish a wrong address.
+Dr. Konati's own direct contact details (confirmed by the client, now used site-wide instead of any hospital reception number):
+- Phone: **+91 99123 08801**
+- Email: **vamseedharkonati@gmail.com**
 
+**Still confirmed from earlier research** (unaffected by the hospital-name correction):
+- MBBS & MS (General Surgery) from S.V. Medical College, Tirupati
+- PDDC (Surgical Gastroenterology), S.V.I.M.S. University, Tirupati, 2010
+- Languages: English, Telugu, Hindi
+- Experience: **20+ years** (client-confirmed final figure — note this supersedes an earlier "23+ years" figure that had briefly been taken from a third-party aggregator; the client's own figure of 20+ is now used everywhere)
 
-|---|---|---|
-| Locality **"Mangalam, Tirupati – 517507"** | Justdial (directory listing, single source) | Could be a clinic/consulting address, but not confirmed which hospital or if it's current — do not publish as an official address without the doctor's sign-off |
-| "9 years practicing laparoscopic surgery" (as his primary interest) | Ankura Hospitals bio text | Vague/relative phrasing with no clear start date — skip rather than guess |
+**OPD timings removed entirely** per client request — the Hospitals section now shows only verified address + map + directions link for each hospital, no timing claims.
 
-**Resolved:** Years of experience was confirmed by the client as **23+ years** (matches Ankura Hospitals' figure, not HexaHealth's "10+ years") — updated site-wide on both EN/TE pages (hero, stats, trust badge, about section, qualifications timeline, meta description, og:description, schema `description`).
-
-**Note on name spelling:** Ankura Hospitals' own bio paragraph still refers to him as "Dr. K. Vamseedhar" in running text (even though their page heading drops the "K."). This doesn't change our decision — the site intentionally uses "Dr. Vamseedhar Konati" per the client's explicit instruction earlier in this project.
+**Note on name spelling:** Ankura Hospitals' own bio paragraph (no longer relevant to this site) referred to him as "Dr. K. Vamseedhar" in running text. This doesn't change our decision — the site intentionally uses "Dr. Vamseedhar Konati" per the client's explicit instruction earlier in this project.
 
