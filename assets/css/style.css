@@ -818,13 +818,19 @@ h2 { font-size: 2rem; margin-bottom: 20px; color: var(--color-primary-dark); }
 /* ========== Mobile sticky Call / Book Appointment bar (mobile only, see media query) ========== */
 .mobile-book-bar { display: none; }
 .mobile-book-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   flex: 1;
   text-align: center;
-  padding: 14px 10px;
+  padding: 13px 8px;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
+  line-height: 1.15;
   color: #fff;
 }
+.mobile-book-icon { font-size: 0.95rem; line-height: 1; }
 .mobile-book-call { background: var(--color-primary-dark); }
 .mobile-book-cta { background: var(--color-accent); }
 
