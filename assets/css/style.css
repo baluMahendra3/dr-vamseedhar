@@ -51,6 +51,9 @@ body {
 
 h1, h2, h3 { font-family: var(--font-heading); line-height: 1.25; }
 
+/* Keeps ordinary paragraph/content text visually smaller and less dominant than the header brand name */
+p { font-size: 0.95rem; }
+
 a { text-decoration: none; color: inherit; }
 
 img { max-width: 100%; display: block; }
@@ -203,7 +206,7 @@ h2 { font-size: 2rem; margin-bottom: 20px; color: var(--color-primary-dark); }
   align-items: center;
   gap: 10px;
   font-weight: 700;
-  font-size: 1.05rem;
+  font-size: 1.2rem;
   color: var(--color-primary-dark);
   flex-shrink: 0;
   white-space: nowrap;
@@ -1052,7 +1055,7 @@ html.has-custom-cursor .custom-cursor-icon { opacity: 1; }
 /* Very small phones (e.g. iPhone SE 1st gen, 320px) */
 @media (max-width: 380px) {
   .container { padding: 0 16px; }
-  .brand { font-size: 0.82rem; gap: 6px; }
+  .brand { font-size: 1rem; gap: 6px; }
   .brand-logo { width: 26px; height: 26px; }
   .nav-toggle { padding: 6px; }
   h1 { font-size: 1.6rem; }
