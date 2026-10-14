@@ -127,7 +127,7 @@ if (window.matchMedia('(pointer: fine)').matches) {
   const icon = document.createElement('div');
   icon.className = 'custom-cursor-icon';
   // A different medical icon is picked at random on each page load/reload.
-  const cursorIcons = ['🩺', '💊', '💉', '🌡️', '🧬'];
+  const cursorIcons = ['🩺', '💊', '💉', '🌡️', '🧬', '🏥', '❤️', '🩹', '🧪', '⚕️', '🦴', '🧠'];
   icon.textContent = cursorIcons[Math.floor(Math.random() * cursorIcons.length)];
   document.body.append(ring, dot, icon);
   document.documentElement.classList.add('has-custom-cursor');
