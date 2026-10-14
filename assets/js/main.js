@@ -35,6 +35,23 @@ window.addEventListener('scroll', () => {
   siteHeader.classList.toggle('scrolled', window.scrollY > 40);
 });
 
+// ========== Scrollspy: highlight the nav link for the section in view ==========
+const navLinks = Array.from(mainNav.querySelectorAll('a[href^="#"]'));
+const spySections = navLinks
+  .map(link => document.getElementById(link.getAttribute('href').slice(1)))
+  .filter(Boolean);
+const spyObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    const link = mainNav.querySelector(`a[href="#${entry.target.id}"]`);
+    if (!link) return;
+    if (entry.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active-link'));
+      link.classList.add('active-link');
+    }
+  });
+}, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+spySections.forEach(section => spyObserver.observe(section));
+
 // ========== Back to Top ==========
 const backToTop = document.getElementById('backToTop');
 window.addEventListener('scroll', () => {

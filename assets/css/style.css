@@ -256,6 +256,9 @@ h2 { font-size: 2rem; margin-bottom: 20px; color: var(--color-primary-dark); }
 }
 .main-nav a:not(.nav-cta):hover::after { width: 100%; }
 .main-nav a:hover { color: var(--color-primary); }
+/* Highlights the nav link for whichever section is currently in view (scrollspy) */
+.main-nav a.active-link:not(.nav-cta) { color: var(--color-primary); }
+.main-nav a.active-link:not(.nav-cta)::after { width: 100%; }
 
 .nav-cta {
   background: var(--color-primary);
@@ -809,6 +812,19 @@ h2 { font-size: 2rem; margin-bottom: 20px; color: var(--color-primary-dark); }
 .back-to-top.visible { opacity: 1; pointer-events: auto; }
 .back-to-top:hover { background: var(--color-primary-dark); }
 
+/* ========== Mobile sticky Call / Book Appointment bar (mobile only, see media query) ========== */
+.mobile-book-bar { display: none; }
+.mobile-book-btn {
+  flex: 1;
+  text-align: center;
+  padding: 14px 10px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #fff;
+}
+.mobile-book-call { background: var(--color-primary-dark); }
+.mobile-book-cta { background: var(--color-accent); }
+
 /* ========== Scroll Reveal ========== */
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
 .reveal.is-visible { opacity: 1; transform: translateY(0); }
@@ -958,6 +974,19 @@ html.has-custom-cursor .custom-cursor-icon { opacity: 1; }
   .cards-grid, .gallery-grid { gap: 14px; }
   .faq-list { margin: 26px auto 0; gap: 10px; }
   .why-card { padding: 22px 16px; }
+  /* Sticky Call / Book Appointment bar replaces the header's always-visible CTA on mobile */
+  body { padding-bottom: 56px; }
+  .mobile-book-bar {
+    display: flex;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 250;
+    box-shadow: 0 -4px 16px rgba(0,0,0,0.12);
+  }
+  .whatsapp-float { bottom: 80px; width: 48px; height: 48px; }
+  .back-to-top { bottom: 80px; }
 }
 
 /* Very small phones (e.g. iPhone SE 1st gen, 320px) */
