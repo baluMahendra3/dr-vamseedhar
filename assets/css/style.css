@@ -20,6 +20,19 @@
 html { scroll-behavior: smooth; }
 body { overflow-x: hidden; max-width: 100%; }
 
+/* Medicine-capsule styled scrollbar: a rounded two-tone pill thumb, like a tablet */
+html { scrollbar-width: thin; scrollbar-color: var(--color-accent) var(--color-bg-alt); }
+::-webkit-scrollbar { width: 14px; }
+::-webkit-scrollbar-track { background: var(--color-bg-alt); }
+::-webkit-scrollbar-thumb {
+  border-radius: 20px;
+  border: 3px solid var(--color-bg-alt);
+  background: linear-gradient(to bottom, var(--color-accent) 0%, var(--color-accent) 50%, var(--color-primary) 50%, var(--color-primary) 100%);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, var(--color-accent) 0%, var(--color-accent) 50%, var(--color-primary-dark) 50%, var(--color-primary-dark) 100%);
+}
+
 body {
   font-family: var(--font-body);
   color: var(--color-text);
