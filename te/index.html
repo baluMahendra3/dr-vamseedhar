@@ -493,6 +493,30 @@
         <p class="review-text">చాలా అనుభవజ్ఞులైన డాక్టర్, హీలియోస్ హాస్పిటల్స్‌లో సంప్రదింపు క్షుణ్ణంగా జరిగింది. కొంచెం వేచి ఉండాల్సి వచ్చినా విలువైనది.</p>
       </div>
     </div>
+
+    <div class="write-review-card">
+      <h3>మీ అనుభవాన్ని పంచుకోండి</h3>
+      <form id="reviewForm" class="review-form">
+        <div class="star-rating" id="starRating">
+          <button type="button" class="star-btn" data-value="1" aria-label="1 star">★</button>
+          <button type="button" class="star-btn" data-value="2" aria-label="2 stars">★</button>
+          <button type="button" class="star-btn" data-value="3" aria-label="3 stars">★</button>
+          <button type="button" class="star-btn" data-value="4" aria-label="4 stars">★</button>
+          <button type="button" class="star-btn" data-value="5" aria-label="5 stars">★</button>
+          <input type="hidden" name="rating" id="reviewRating" value="5">
+        </div>
+        <div class="form-row">
+          <label for="reviewName">మీ పేరు</label>
+          <input type="text" id="reviewName" name="name" required maxlength="60">
+        </div>
+        <div class="form-row">
+          <label for="reviewText">మీ సమీక్ష</label>
+          <textarea id="reviewText" name="text" rows="3" required maxlength="500" placeholder="మీ అనుభవం గురించి చెప్పండి..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" id="reviewSubmitBtn">సమీక్షను పోస్ట్ చేయండి</button>
+        <p class="form-note" id="reviewFormNote"></p>
+      </form>
+    </div>
   </div>
 </section>
 

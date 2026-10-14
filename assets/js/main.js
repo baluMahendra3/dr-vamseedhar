@@ -9,36 +9,95 @@ mainNav.querySelectorAll('a').forEach(link => {
   link.addEventListener('click', () => mainNav.classList.remove('open'));
 });
 
-// ========== Dynamic Reviews (loaded from a public Google Drive JSON file) ==========
-// 1. Create a JSON file shaped like: [{ "name": "...", "rating": 5, "text": "..." }, ...]
-// 2. Upload it to Google Drive, right-click > Share > "Anyone with the link" > Viewer
-// 3. Copy the file ID from the share link (the long string between /d/ and /view)
-// 4. Paste it below as REVIEWS_DRIVE_FILE_ID — leave empty to keep the static sample reviews.
-const REVIEWS_DRIVE_FILE_ID = '';
+// ========== Dynamic Reviews (read + write via a Google Apps Script bridge to a Drive JSON file) ==========
+// Direct Drive links require a Google sign-in for fetch(), so a small Apps Script Web App
+// is used instead as a free "backend" that reads/writes the JSON file on your behalf.
+// See research/reviews-apps-script.gs for the script to deploy, and paste its Web App URL below.
+// Leave empty to keep the static sample reviews and disable the "Post Review" form.
+const REVIEWS_API_URL = '';
 const reviewsList = document.getElementById('reviewsList');
+const reviewForm = document.getElementById('reviewForm');
 // Escapes review content before inserting it, since it comes from an external file we don't fully control.
 const escapeHtml = (str) => String(str).replace(/[&<>"']/g, (c) => (
   { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
 ));
-if (reviewsList && REVIEWS_DRIVE_FILE_ID) {
-  const reviewsUrl = `https://drive.google.com/uc?export=download&id=${REVIEWS_DRIVE_FILE_ID}`;
-  fetch(reviewsUrl)
+const renderReviews = (reviews) => {
+  if (!reviewsList || !Array.isArray(reviews) || reviews.length === 0) return;
+  reviewsList.innerHTML = reviews.map(r => {
+    const rating = Math.max(0, Math.min(5, Math.round(Number(r.rating) || 5)));
+    const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+    return `
+      <div class="review-card">
+        <div class="stars">${stars}</div>
+        <h4>${escapeHtml(r.name || 'Anonymous Patient')}</h4>
+        <p class="review-text">${escapeHtml(r.text || '')}</p>
+      </div>`;
+  }).join('');
+};
+const loadReviews = () => {
+  if (!reviewsList || !REVIEWS_API_URL) return;
+  fetch(REVIEWS_API_URL)
     .then(res => res.json())
-    .then(reviews => {
-      if (!Array.isArray(reviews) || reviews.length === 0) return;
-      reviewsList.innerHTML = reviews.map(r => {
-        const rating = Math.max(0, Math.min(5, Math.round(Number(r.rating) || 5)));
-        const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
-        return `
-          <div class="review-card">
-            <div class="stars">${stars}</div>
-            <h4>${escapeHtml(r.name || 'Anonymous Patient')}</h4>
-            <p class="review-text">${escapeHtml(r.text || '')}</p>
-          </div>`;
-      }).join('');
-    })
+    .then(renderReviews)
     .catch(() => { /* fetch failed — keep the static sample reviews already in the HTML */ });
+};
+loadReviews();
+
+// ========== Review submission form: lets visitors post a review (name, star rating, comment) ==========
+if (reviewForm) {
+  const starButtons = reviewForm.querySelectorAll('.star-btn');
+  const ratingInput = document.getElementById('reviewRating');
+  const formNote = document.getElementById('reviewFormNote');
+  const submitBtn = document.getElementById('reviewSubmitBtn');
+  const highlightStars = (value) => {
+    starButtons.forEach(btn => btn.classList.toggle('active', Number(btn.dataset.value) <= value));
+  };
+  highlightStars(Number(ratingInput.value) || 5);
+  starButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      ratingInput.value = btn.dataset.value;
+      highlightStars(Number(btn.dataset.value));
+    });
+    if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+      btn.addEventListener('mouseenter', () => highlightStars(Number(btn.dataset.value)));
+      btn.addEventListener('mouseleave', () => highlightStars(Number(ratingInput.value)));
+    }
+  });
+
+  reviewForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const name = document.getElementById('reviewName').value.trim();
+    const text = document.getElementById('reviewText').value.trim();
+    const rating = Number(ratingInput.value) || 5;
+    if (!REVIEWS_API_URL) {
+      formNote.style.color = '#c0392b';
+      formNote.textContent = 'Review submissions aren\u2019t connected yet \u2014 please check back soon.';
+      return;
+    }
+    submitBtn.disabled = true;
+    formNote.style.color = 'var(--color-muted)';
+    formNote.textContent = 'Posting your review\u2026';
+    try {
+      // text/plain avoids a CORS preflight that Apps Script Web Apps don't handle well
+      await fetch(REVIEWS_API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ name, rating, text })
+      });
+      formNote.style.color = 'var(--color-primary)';
+      formNote.textContent = 'Thank you! Your review has been posted.';
+      reviewForm.reset();
+      highlightStars(5);
+      loadReviews();
+    } catch (err) {
+      formNote.style.color = '#c0392b';
+      formNote.textContent = 'Something went wrong. Please try again later.';
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
 }
+
 
 // ========== Footer Year ==========
 document.getElementById('year').textContent = new Date().getFullYear();

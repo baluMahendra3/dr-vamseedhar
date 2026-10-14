@@ -597,6 +597,30 @@
         <p class="review-text">Very experienced doctor, consultation at Helios Hospitals was thorough. Slight wait time but worth it.</p>
       </div>
     </div>
+
+    <div class="write-review-card">
+      <h3>Share Your Experience</h3>
+      <form id="reviewForm" class="review-form">
+        <div class="star-rating" id="starRating">
+          <button type="button" class="star-btn" data-value="1" aria-label="1 star">★</button>
+          <button type="button" class="star-btn" data-value="2" aria-label="2 stars">★</button>
+          <button type="button" class="star-btn" data-value="3" aria-label="3 stars">★</button>
+          <button type="button" class="star-btn" data-value="4" aria-label="4 stars">★</button>
+          <button type="button" class="star-btn" data-value="5" aria-label="5 stars">★</button>
+          <input type="hidden" name="rating" id="reviewRating" value="5">
+        </div>
+        <div class="form-row">
+          <label for="reviewName">Your Name</label>
+          <input type="text" id="reviewName" name="name" required maxlength="60">
+        </div>
+        <div class="form-row">
+          <label for="reviewText">Your Review</label>
+          <textarea id="reviewText" name="text" rows="3" required maxlength="500" placeholder="Tell us about your experience..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" id="reviewSubmitBtn">Post Review</button>
+        <p class="form-note" id="reviewFormNote"></p>
+      </form>
+    </div>
   </div>
 </section>
 
