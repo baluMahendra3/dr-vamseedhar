@@ -131,6 +131,26 @@ if (reviewsNextBtn) reviewsNextBtn.addEventListener('click', () => { goToReviews
 if (reviewsSliderEl) {
   reviewsSliderEl.addEventListener('mouseenter', () => clearInterval(reviewsSliderTimer));
   reviewsSliderEl.addEventListener('mouseleave', () => startReviewsAutoplay());
+  // Left/right arrow keys move the slide when it (or a control inside it) has focus.
+  reviewsSliderEl.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') { goToReviewsSlide(reviewsSliderIndex - 1); startReviewsAutoplay(); }
+    else if (e.key === 'ArrowRight') { goToReviewsSlide(reviewsSliderIndex + 1); startReviewsAutoplay(); }
+  });
+  // Touch swipe support for mobile, since arrows are small targets on a touchscreen.
+  let touchStartX = null;
+  reviewsSliderEl.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+    clearInterval(reviewsSliderTimer);
+  }, { passive: true });
+  reviewsSliderEl.addEventListener('touchend', (e) => {
+    if (touchStartX === null) return;
+    const deltaX = e.changedTouches[0].clientX - touchStartX;
+    const SWIPE_THRESHOLD = 40;
+    if (deltaX > SWIPE_THRESHOLD) goToReviewsSlide(reviewsSliderIndex - 1);
+    else if (deltaX < -SWIPE_THRESHOLD) goToReviewsSlide(reviewsSliderIndex + 1);
+    touchStartX = null;
+    startReviewsAutoplay();
+  });
 }
 // Debounced so the dot count/visible-card count stays correct after a breakpoint change, not just the scroll position.
 let reviewsResizeTimer = null;
