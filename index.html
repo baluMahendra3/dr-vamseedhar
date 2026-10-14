@@ -119,6 +119,9 @@
 </head>
 <body>
 
+<!-- Fills left-to-right as the visitor scrolls, a subtle nudge that there's more content ahead -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
 <!-- ===== Header ===== -->
 <header class="site-header" id="header">
   <div class="container header-inner">
@@ -181,6 +184,10 @@
       </div>
     </div>
   </div>
+  <a href="#about" class="scroll-hint" aria-label="Scroll down to explore">
+    <span class="scroll-hint-text">Scroll to explore</span>
+    <span class="scroll-hint-arrow">↓</span>
+  </a>
 </section>
 
 <!-- ===== Stats ===== -->

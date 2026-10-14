@@ -59,6 +59,22 @@ window.addEventListener('scroll', () => {
 });
 backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
+// ========== Scroll Progress Bar ==========
+const scrollProgress = document.getElementById('scrollProgress');
+window.addEventListener('scroll', () => {
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const pct = docHeight > 0 ? (window.scrollY / docHeight) * 100 : 0;
+  scrollProgress.style.width = `${pct}%`;
+}, { passive: true });
+
+// ========== Scroll Hint: fade out once the visitor starts scrolling ==========
+const scrollHint = document.querySelector('.scroll-hint');
+if (scrollHint) {
+  window.addEventListener('scroll', () => {
+    scrollHint.classList.toggle('is-hidden', window.scrollY > 80);
+  }, { passive: true });
+}
+
 // ========== Stat Counter Animation ==========
 const statNumbers = document.querySelectorAll('.stat-number');
 const animateCount = (el) => {
