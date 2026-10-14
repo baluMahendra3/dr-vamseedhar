@@ -167,6 +167,85 @@ window.addEventListener('resize', () => {
 initReviewsSlider();
 loadReviews();
 
+// ========== Generic carousel factory, reused for Expertise/Recognition/Gallery/Health Tips (static content, no reload needed) ==========
+const createCarousel = (sliderId, trackId, prevId, nextId, dotsId, autoplayMs = 5000) => {
+  const sliderEl = document.getElementById(sliderId);
+  const trackEl = document.getElementById(trackId);
+  const prevBtn = document.getElementById(prevId);
+  const nextBtn = document.getElementById(nextId);
+  const dotsEl = document.getElementById(dotsId);
+  if (!sliderEl || !trackEl) return;
+  let index = 0;
+  let timer = null;
+  const getVisible = () => {
+    const n = trackEl.children.length;
+    const v = window.innerWidth <= 720 ? 1 : window.innerWidth <= 960 ? 2 : 3;
+    return Math.min(v, n || 1);
+  };
+  const getMaxIndex = () => Math.max(0, trackEl.children.length - getVisible());
+  const apply = () => {
+    if (!trackEl.children.length) return;
+    const visible = getVisible();
+    const maxIndex = getMaxIndex();
+    index = Math.max(0, Math.min(index, maxIndex));
+    trackEl.style.transform = `translateX(-${index * (100 / visible)}%)`;
+    if (dotsEl) dotsEl.querySelectorAll('.slider-dot').forEach((dot, i) => dot.classList.toggle('active', i === index));
+    if (prevBtn) prevBtn.hidden = maxIndex === 0;
+    if (nextBtn) nextBtn.hidden = maxIndex === 0;
+  };
+  const goTo = (i) => {
+    const maxIndex = getMaxIndex();
+    index = ((i % (maxIndex + 1)) + (maxIndex + 1)) % (maxIndex + 1);
+    apply();
+  };
+  const startAutoplay = () => {
+    clearInterval(timer);
+    if (trackEl.children.length <= getVisible()) return;
+    timer = setInterval(() => goTo(index + 1), autoplayMs);
+  };
+  const rebuildDots = () => {
+    if (!dotsEl) return;
+    const maxIndex = getMaxIndex();
+    dotsEl.hidden = maxIndex === 0;
+    dotsEl.innerHTML = Array.from({ length: maxIndex + 1 }, (_, i) =>
+      `<button type="button" class="slider-dot${i === 0 ? ' active' : ''}" aria-label="Go to slide ${i + 1}" data-index="${i}"></button>`
+    ).join('');
+    dotsEl.querySelectorAll('.slider-dot').forEach(dot => {
+      dot.addEventListener('click', () => { goTo(Number(dot.dataset.index)); startAutoplay(); });
+    });
+  };
+  if (prevBtn) prevBtn.addEventListener('click', () => { goTo(index - 1); startAutoplay(); });
+  if (nextBtn) nextBtn.addEventListener('click', () => { goTo(index + 1); startAutoplay(); });
+  sliderEl.addEventListener('mouseenter', () => clearInterval(timer));
+  sliderEl.addEventListener('mouseleave', () => startAutoplay());
+  sliderEl.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') { goTo(index - 1); startAutoplay(); }
+    else if (e.key === 'ArrowRight') { goTo(index + 1); startAutoplay(); }
+  });
+  let touchStartX = null;
+  sliderEl.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; clearInterval(timer); }, { passive: true });
+  sliderEl.addEventListener('touchend', (e) => {
+    if (touchStartX === null) return;
+    const deltaX = e.changedTouches[0].clientX - touchStartX;
+    if (deltaX > 40) goTo(index - 1);
+    else if (deltaX < -40) goTo(index + 1);
+    touchStartX = null;
+    startAutoplay();
+  });
+  let resizeTimer = null;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => { rebuildDots(); apply(); startAutoplay(); }, 150);
+  });
+  rebuildDots();
+  apply();
+  startAutoplay();
+};
+createCarousel('expertiseCarousel', 'expertiseTrack', 'expertisePrev', 'expertiseNext', 'expertiseDots', 5000);
+createCarousel('recognitionCarousel', 'recognitionTrack', 'recognitionPrev', 'recognitionNext', 'recognitionDots', 6000);
+createCarousel('galleryCarousel', 'galleryTrack', 'galleryPrev', 'galleryNext', 'galleryDots', 5500);
+createCarousel('healthTipsCarousel', 'healthTipsTrack', 'healthTipsPrev', 'healthTipsNext', 'healthTipsDots', 6500);
+
 // ========== Review submission form: lets visitors post a review (name, star rating, comment) ==========
 if (reviewForm) {
   const starButtons = reviewForm.querySelectorAll('.star-btn');
