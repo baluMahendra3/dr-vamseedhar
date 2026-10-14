@@ -21,9 +21,23 @@ const reviewForm = document.getElementById('reviewForm');
 const escapeHtml = (str) => String(str).replace(/[&<>"']/g, (c) => (
   { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
 ));
+// Caps the rendered list and drops test/spam-looking entries so the section stays fast and presentable as it grows.
+const MAX_REVIEWS_SHOWN = 9;
+const MIN_REVIEW_TEXT_LENGTH = 15;
+const isLowQualityReview = (r) => {
+  const text = String(r.text || '').trim();
+  const name = String(r.name || '').trim();
+  if (text.length < MIN_REVIEW_TEXT_LENGTH) return true;
+  const junkPattern = /qa test|please delete|test review|automated|end-to-end test/i;
+  if (junkPattern.test(text) || junkPattern.test(name)) return true;
+  if (/^test$/i.test(name)) return true;
+  return false;
+};
 const renderReviews = (reviews) => {
-  if (!reviewsList || !Array.isArray(reviews) || reviews.length === 0) return;
-  reviewsList.innerHTML = reviews.map(r => {
+  if (!reviewsList || !Array.isArray(reviews)) return;
+  const curated = reviews.filter(r => !isLowQualityReview(r)).slice(0, MAX_REVIEWS_SHOWN);
+  if (curated.length === 0) return;
+  reviewsList.innerHTML = curated.map(r => {
     const rating = Math.max(0, Math.min(5, Math.round(Number(r.rating) || 5)));
     const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
     return `
