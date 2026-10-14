@@ -52,7 +52,7 @@ body {
 h1, h2, h3 { font-family: var(--font-heading); line-height: 1.25; }
 
 /* Keeps ordinary paragraph/content text visually smaller and less dominant than the header brand name */
-p { font-size: 0.95rem; }
+p { font-size: 0.88rem; }
 
 a { text-decoration: none; color: inherit; }
 
@@ -659,7 +659,7 @@ h2 { font-size: 2rem; margin-bottom: 20px; color: var(--color-primary-dark); }
 .review-card .stars { color: var(--color-accent); letter-spacing: 2px; margin-bottom: 10px; }
 .review-card h4 { color: var(--color-primary-dark); margin-bottom: 4px; }
 .review-card .review-date { font-size: 0.78rem; color: var(--color-muted); margin-bottom: 10px; }
-.review-card p.review-text { color: var(--color-text); font-size: 0.95rem; }
+.review-card p.review-text { color: var(--color-text); font-size: 0.88rem; }
 
 /* ========== Blog teaser ========== */
 .blog-card { text-align: left; cursor: pointer; }
@@ -712,7 +712,7 @@ h2 { font-size: 2rem; margin-bottom: 20px; color: var(--color-primary-dark); }
   align-items: start;
 }
 .contact-list { margin-top: 24px; display: grid; gap: 14px; }
-.contact-list li { color: var(--color-text); }
+.contact-list li { color: var(--color-text); font-size: 0.88rem; }
 
 .contact-form {
   background: var(--color-bg-alt);
@@ -811,7 +811,7 @@ h2 { font-size: 2rem; margin-bottom: 20px; color: var(--color-primary-dark); }
   transition: max-height 0.3s ease;
   padding: 0 22px;
 }
-.faq-answer p { padding-bottom: 18px; color: var(--color-muted); font-size: 0.95rem; }
+.faq-answer p { padding-bottom: 18px; color: var(--color-muted); font-size: 0.88rem; }
 .faq-item.open .faq-answer { max-height: 300px; }
 .faq-item.open .faq-icon { transform: rotate(45deg); }
 
