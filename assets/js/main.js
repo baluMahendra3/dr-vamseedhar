@@ -9,6 +9,37 @@ mainNav.querySelectorAll('a').forEach(link => {
   link.addEventListener('click', () => mainNav.classList.remove('open'));
 });
 
+// ========== Dynamic Reviews (loaded from a public Google Drive JSON file) ==========
+// 1. Create a JSON file shaped like: [{ "name": "...", "rating": 5, "text": "..." }, ...]
+// 2. Upload it to Google Drive, right-click > Share > "Anyone with the link" > Viewer
+// 3. Copy the file ID from the share link (the long string between /d/ and /view)
+// 4. Paste it below as REVIEWS_DRIVE_FILE_ID — leave empty to keep the static sample reviews.
+const REVIEWS_DRIVE_FILE_ID = '';
+const reviewsList = document.getElementById('reviewsList');
+// Escapes review content before inserting it, since it comes from an external file we don't fully control.
+const escapeHtml = (str) => String(str).replace(/[&<>"']/g, (c) => (
+  { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+));
+if (reviewsList && REVIEWS_DRIVE_FILE_ID) {
+  const reviewsUrl = `https://drive.google.com/uc?export=download&id=${REVIEWS_DRIVE_FILE_ID}`;
+  fetch(reviewsUrl)
+    .then(res => res.json())
+    .then(reviews => {
+      if (!Array.isArray(reviews) || reviews.length === 0) return;
+      reviewsList.innerHTML = reviews.map(r => {
+        const rating = Math.max(0, Math.min(5, Math.round(Number(r.rating) || 5)));
+        const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+        return `
+          <div class="review-card">
+            <div class="stars">${stars}</div>
+            <h4>${escapeHtml(r.name || 'Anonymous Patient')}</h4>
+            <p class="review-text">${escapeHtml(r.text || '')}</p>
+          </div>`;
+      }).join('');
+    })
+    .catch(() => { /* fetch failed — keep the static sample reviews already in the HTML */ });
+}
+
 // ========== Footer Year ==========
 document.getElementById('year').textContent = new Date().getFullYear();
 

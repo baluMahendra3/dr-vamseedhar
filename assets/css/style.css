@@ -519,6 +519,7 @@ h2 { font-size: 2rem; margin-bottom: 20px; color: var(--color-primary-dark); }
   position: relative;
   color: var(--color-text);
   font-weight: 500;
+  font-size: 0.88rem;
 }
 .about-highlights li::before {
   content: "✔";
@@ -580,7 +581,7 @@ h2 { font-size: 2rem; margin-bottom: 20px; color: var(--color-primary-dark); }
 .service-icon { width: 54px; height: 54px; margin: 0 auto 18px; }
 .service-card .read-more { display: inline-block; margin-top: 10px; color: var(--color-primary); font-weight: 600; font-size: 0.85rem; }
 .service-card .read-more:hover { text-decoration: underline; }
-.service-card h3 { font-size: 1.05rem; margin-bottom: 8px; color: var(--color-primary-dark); }
+.service-card h3 { font-size: 0.98rem; margin-bottom: 8px; color: var(--color-primary-dark); }
 .service-card p { font-size: 0.9rem; color: var(--color-muted); }
 
 /* ========== Hospitals ========== */
@@ -796,7 +797,7 @@ h2 { font-size: 2rem; margin-bottom: 20px; color: var(--color-primary-dark); }
   border: none;
   padding: 18px 22px;
   font-family: inherit;
-  font-size: 1rem;
+  font-size: 0.92rem;
   font-weight: 600;
   color: var(--color-primary-dark);
   cursor: pointer;
