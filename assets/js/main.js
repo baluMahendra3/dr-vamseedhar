@@ -14,7 +14,7 @@ mainNav.querySelectorAll('a').forEach(link => {
 // is used instead as a free "backend" that reads/writes the JSON file on your behalf.
 // See research/reviews-apps-script.gs for the script to deploy, and paste its Web App URL below.
 // Leave empty to keep the static sample reviews and disable the "Post Review" form.
-const REVIEWS_API_URL = '';
+const REVIEWS_API_URL = 'https://script.google.com/macros/s/AKfycbyP9epljIyMS1jtj9EImBIvA0vvnJAKdbLo7fMK7AUl4fNp0oCcJVZY3sR6ugvB-WaeBA/exec';
 const reviewsList = document.getElementById('reviewsList');
 const reviewForm = document.getElementById('reviewForm');
 // Escapes review content before inserting it, since it comes from an external file we don't fully control.
