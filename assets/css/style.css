@@ -624,26 +624,6 @@ h2 { font-size: 2rem; margin-bottom: 20px; color: var(--color-primary-dark); }
 .gallery-grid figure:hover img { transform: scale(1.08); }
 
 /* ========== Reviews ========== */
-.google-rating-card {
-  max-width: 480px;
-  margin: 30px auto 24px;
-  background: #fff;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 30px;
-  text-align: center;
-}
-.google-logo { width: 36px; height: 36px; margin: 0 auto 10px; }
-.google-rating-score { display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 8px; }
-.avg-score { font-size: 3rem; font-weight: 700; color: var(--color-primary-dark); font-family: var(--font-heading); }
-.avg-stars { color: var(--color-accent); font-size: 1.3rem; letter-spacing: 2px; }
-.google-rating-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 18px; }
-
-.reviews-widget-slot:empty { display: none; }
-
-.sample-reviews-note { font-style: italic; }
-
 .reviews-list {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
