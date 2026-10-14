@@ -569,22 +569,30 @@
     <p class="section-tag center">⭐ <span>Patient Reviews</span></p>
     <h2 class="center">What People Say</h2>
 
-    <div class="reviews-list" id="reviewsList">
-      <div class="review-card">
-        <div class="stars">★★★★★</div>
-        <h4>Lakshmi Narayana</h4>
-        <p class="review-text">Dr. Konati performed my gallbladder surgery laparoscopically. Minimal pain and I was back home in 2 days. Excellent doctor!</p>
+    <div class="reviews-slider" id="reviewsSlider">
+      <button type="button" class="slider-arrow slider-prev" id="reviewsPrev" aria-label="Previous reviews">&#10094;</button>
+      <div class="reviews-list" id="reviewsList">
+        <div class="review-card">
+          <div class="stars">★★★★★</div>
+          <h4>Lakshmi Narayana</h4>
+          <p class="review-text">Dr. Konati performed my gallbladder surgery laparoscopically. Minimal pain and I was back home in 2 days. Excellent doctor!</p>
+        </div>
+        <div class="review-card">
+          <div class="stars">★★★★★</div>
+          <h4>Srinivasa Rao</h4>
+          <p class="review-text">Best surgeon in Tirupati for hernia treatment. Very patient while explaining the procedure and recovery was quick.</p>
+        </div>
+        <div class="review-card">
+          <div class="stars">★★★★☆</div>
+          <h4>Anonymous Patient</h4>
+          <p class="review-text">Very experienced doctor, consultation at Helios Hospitals was thorough. Slight wait time but worth it.</p>
+        </div>
       </div>
-      <div class="review-card">
-        <div class="stars">★★★★★</div>
-        <h4>Srinivasa Rao</h4>
-        <p class="review-text">Best surgeon in Tirupati for hernia treatment. Very patient while explaining the procedure and recovery was quick.</p>
-      </div>
-      <div class="review-card">
-        <div class="stars">★★★★☆</div>
-        <h4>Anonymous Patient</h4>
-        <p class="review-text">Very experienced doctor, consultation at Helios Hospitals was thorough. Slight wait time but worth it.</p>
-      </div>
+      <button type="button" class="slider-arrow slider-next" id="reviewsNext" aria-label="Next reviews">&#10095;</button>
+    </div>
+    <div class="slider-dots" id="reviewsDots"></div>
+    <div class="reviews-more-wrap" id="reviewsMoreWrap" hidden>
+      <a href="reviews/index.html" class="btn btn-outline">More Reviews &rarr;</a>
     </div>
 
     <div class="write-review-card">

@@ -35,9 +35,10 @@ const isLowQualityReview = (r) => {
 };
 const renderReviews = (reviews) => {
   if (!reviewsList || !Array.isArray(reviews)) return;
-  const curated = reviews.filter(r => !isLowQualityReview(r)).slice(0, MAX_REVIEWS_SHOWN);
+  const curated = reviews.filter(r => !isLowQualityReview(r));
   if (curated.length === 0) return;
-  reviewsList.innerHTML = curated.map(r => {
+  const shown = curated.slice(0, MAX_REVIEWS_SHOWN);
+  reviewsList.innerHTML = shown.map(r => {
     const rating = Math.max(0, Math.min(5, Math.round(Number(r.rating) || 5)));
     const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
     return `
@@ -47,6 +48,9 @@ const renderReviews = (reviews) => {
         <p class="review-text">${escapeHtml(r.text || '')}</p>
       </div>`;
   }).join('');
+  const moreWrap = document.getElementById('reviewsMoreWrap');
+  if (moreWrap) moreWrap.hidden = curated.length <= MAX_REVIEWS_SHOWN;
+  initReviewsSlider();
 };
 const loadReviews = () => {
   if (!reviewsList || !REVIEWS_API_URL) return;
@@ -55,6 +59,92 @@ const loadReviews = () => {
     .then(renderReviews)
     .catch(() => { /* fetch failed — keep the static sample reviews already in the HTML */ });
 };
+
+// ========== Reviews carousel: auto-advances, with arrows/dots, re-initialized whenever the cards change ==========
+let reviewsSliderTimer = null;
+let reviewsSliderIndex = 0;
+const reviewsSliderEl = document.getElementById('reviewsSlider');
+const reviewsDotsEl = document.getElementById('reviewsDots');
+const reviewsPrevBtn = document.getElementById('reviewsPrev');
+const reviewsNextBtn = document.getElementById('reviewsNext');
+const getReviewsVisibleCount = () => {
+  const width = window.innerWidth;
+  if (width <= 720) return 1;
+  if (width <= 960) return 2;
+  return 3;
+};
+const applyReviewsSliderPosition = () => {
+  const cards = reviewsList ? reviewsList.querySelectorAll('.review-card') : [];
+  if (!cards.length) return;
+  const visible = Math.min(getReviewsVisibleCount(), cards.length);
+  const maxIndex = Math.max(0, cards.length - visible);
+  reviewsSliderIndex = Math.max(0, Math.min(reviewsSliderIndex, maxIndex));
+  reviewsList.style.transform = `translateX(-${reviewsSliderIndex * (100 / visible)}%)`;
+  if (reviewsDotsEl) {
+    reviewsDotsEl.querySelectorAll('.slider-dot').forEach((dot, i) => {
+      dot.classList.toggle('active', i === reviewsSliderIndex);
+    });
+  }
+  const atStart = reviewsSliderIndex === 0;
+  const atEnd = reviewsSliderIndex >= maxIndex;
+  if (reviewsPrevBtn) reviewsPrevBtn.hidden = maxIndex === 0;
+  if (reviewsNextBtn) reviewsNextBtn.hidden = maxIndex === 0;
+  if (reviewsPrevBtn) reviewsPrevBtn.disabled = atStart && maxIndex === 0;
+  if (reviewsNextBtn) reviewsNextBtn.disabled = atEnd && maxIndex === 0;
+};
+const goToReviewsSlide = (index) => {
+  const cards = reviewsList ? reviewsList.querySelectorAll('.review-card') : [];
+  const visible = Math.min(getReviewsVisibleCount(), cards.length);
+  const maxIndex = Math.max(0, cards.length - visible);
+  reviewsSliderIndex = ((index % (maxIndex + 1)) + (maxIndex + 1)) % (maxIndex + 1);
+  applyReviewsSliderPosition();
+};
+const startReviewsAutoplay = () => {
+  clearInterval(reviewsSliderTimer);
+  const cards = reviewsList ? reviewsList.querySelectorAll('.review-card') : [];
+  const visible = Math.min(getReviewsVisibleCount(), cards.length);
+  if (cards.length <= visible) return; // nothing to slide to
+  reviewsSliderTimer = setInterval(() => goToReviewsSlide(reviewsSliderIndex + 1), 4500);
+};
+const rebuildReviewsDots = () => {
+  if (!reviewsDotsEl || !reviewsList) return;
+  const cards = reviewsList.querySelectorAll('.review-card');
+  const visible = Math.min(getReviewsVisibleCount(), cards.length);
+  const maxIndex = Math.max(0, cards.length - visible);
+  reviewsDotsEl.hidden = maxIndex === 0;
+  reviewsDotsEl.innerHTML = Array.from({ length: maxIndex + 1 }, (_, i) =>
+    `<button type="button" class="slider-dot${i === 0 ? ' active' : ''}" aria-label="Go to slide ${i + 1}" data-index="${i}"></button>`
+  ).join('');
+  reviewsDotsEl.querySelectorAll('.slider-dot').forEach(dot => {
+    dot.addEventListener('click', () => { goToReviewsSlide(Number(dot.dataset.index)); startReviewsAutoplay(); });
+  });
+};
+const initReviewsSlider = () => {
+  if (!reviewsList || !reviewsSliderEl) return;
+  reviewsSliderIndex = 0;
+  rebuildReviewsDots();
+  applyReviewsSliderPosition();
+  startReviewsAutoplay();
+};
+if (reviewsPrevBtn) reviewsPrevBtn.addEventListener('click', () => { goToReviewsSlide(reviewsSliderIndex - 1); startReviewsAutoplay(); });
+if (reviewsNextBtn) reviewsNextBtn.addEventListener('click', () => { goToReviewsSlide(reviewsSliderIndex + 1); startReviewsAutoplay(); });
+if (reviewsSliderEl) {
+  reviewsSliderEl.addEventListener('mouseenter', () => clearInterval(reviewsSliderTimer));
+  reviewsSliderEl.addEventListener('mouseleave', () => startReviewsAutoplay());
+}
+// Debounced so the dot count/visible-card count stays correct after a breakpoint change, not just the scroll position.
+let reviewsResizeTimer = null;
+window.addEventListener('resize', () => {
+  clearTimeout(reviewsResizeTimer);
+  reviewsResizeTimer = setTimeout(() => {
+    if (!reviewsList) return;
+    rebuildReviewsDots();
+    applyReviewsSliderPosition();
+    startReviewsAutoplay();
+  }, 150);
+});
+
+initReviewsSlider();
 loadReviews();
 
 // ========== Review submission form: lets visitors post a review (name, star rating, comment) ==========

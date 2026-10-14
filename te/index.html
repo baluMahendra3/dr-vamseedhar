@@ -512,22 +512,30 @@
     <p class="section-tag center">⭐ రోగుల సమీక్షలు</p>
     <h2 class="center">ప్రజలు ఏమి చెబుతున్నారు</h2>
 
-    <div class="reviews-list" id="reviewsList">
-      <div class="review-card">
-        <div class="stars">★★★★★</div>
-        <h4>Lakshmi Narayana</h4>
-        <p class="review-text">డా. కొనాటి నా గాల్‌బ్లాడర్ సర్జరీని లాపరోస్కోపిక్‌గా నిర్వహించారు. తక్కువ నొప్పితో 2 రోజుల్లో ఇంటికి తిరిగి వచ్చాను. అద్భుతమైన డాక్టర్!</p>
+    <div class="reviews-slider" id="reviewsSlider">
+      <button type="button" class="slider-arrow slider-prev" id="reviewsPrev" aria-label="Previous reviews">&#10094;</button>
+      <div class="reviews-list" id="reviewsList">
+        <div class="review-card">
+          <div class="stars">★★★★★</div>
+          <h4>Lakshmi Narayana</h4>
+          <p class="review-text">డా. కొనాటి నా గాల్‌బ్లాడర్ సర్జరీని లాపరోస్కోపిక్‌గా నిర్వహించారు. తక్కువ నొప్పితో 2 రోజుల్లో ఇంటికి తిరిగి వచ్చాను. అద్భుతమైన డాక్టర్!</p>
+        </div>
+        <div class="review-card">
+          <div class="stars">★★★★★</div>
+          <h4>Srinivasa Rao</h4>
+          <p class="review-text">హెర్నియా చికిత్స కోసం తిరుపతిలో అత్యుత్తమ సర్జన్. విధానాన్ని వివరించేటప్పుడు చాలా ఓపికగా ఉన్నారు మరియు రికవరీ వేగంగా జరిగింది.</p>
+        </div>
+        <div class="review-card">
+          <div class="stars">★★★★☆</div>
+          <h4>Anonymous Patient</h4>
+          <p class="review-text">చాలా అనుభవజ్ఞులైన డాక్టర్, హీలియోస్ హాస్పిటల్స్‌లో సంప్రదింపు క్షుణ్ణంగా జరిగింది. కొంచెం వేచి ఉండాల్సి వచ్చినా విలువైనది.</p>
+        </div>
       </div>
-      <div class="review-card">
-        <div class="stars">★★★★★</div>
-        <h4>Srinivasa Rao</h4>
-        <p class="review-text">హెర్నియా చికిత్స కోసం తిరుపతిలో అత్యుత్తమ సర్జన్. విధానాన్ని వివరించేటప్పుడు చాలా ఓపికగా ఉన్నారు మరియు రికవరీ వేగంగా జరిగింది.</p>
-      </div>
-      <div class="review-card">
-        <div class="stars">★★★★☆</div>
-        <h4>Anonymous Patient</h4>
-        <p class="review-text">చాలా అనుభవజ్ఞులైన డాక్టర్, హీలియోస్ హాస్పిటల్స్‌లో సంప్రదింపు క్షుణ్ణంగా జరిగింది. కొంచెం వేచి ఉండాల్సి వచ్చినా విలువైనది.</p>
-      </div>
+      <button type="button" class="slider-arrow slider-next" id="reviewsNext" aria-label="Next reviews">&#10095;</button>
+    </div>
+    <div class="slider-dots" id="reviewsDots"></div>
+    <div class="reviews-more-wrap" id="reviewsMoreWrap" hidden>
+      <a href="reviews/index.html" class="btn btn-outline">మరిన్ని సమీక్షలు &rarr;</a>
     </div>
 
     <div class="write-review-card">

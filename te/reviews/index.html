@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>రోగుల సమీక్షలు | డా. వంశీధర్ కొనాటి</title>
+<meta name="description" content="తిరుపతిలో కన్సల్టెంట్ జనరల్ & లాపరోస్కోపిక్ సర్జన్ డా. వంశీధర్ కొనాటి కోసం అన్ని రోగుల సమీక్షలు చదవండి.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.drvamseedharkonati.com/te/reviews/index.html">
+<link rel="alternate" hreflang="en" href="https://www.drvamseedharkonati.com/reviews/index.html">
+<link rel="alternate" hreflang="te" href="https://www.drvamseedharkonati.com/te/reviews/index.html">
+<link rel="icon" type="image/svg+xml" href="../../assets/images/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Merriweather:wght@400;700&family=Noto+Sans+Telugu:wght@400;500;600;700&family=Gurajada&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/css/style.css">
+<style>
+  body, .main-nav a, .btn, .section-tag, p, li { font-family: 'Noto Sans Telugu', 'Poppins', sans-serif; }
+  h1, h2, h3, h4 { font-family: 'Gurajada', 'Noto Sans Telugu', serif; }
+  .all-reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 10px; }
+  @media (max-width: 960px) { .all-reviews-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .all-reviews-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="../index.html" class="brand">
+      <img src="../../assets/images/favicon.svg" alt="" class="brand-logo">
+      <span>Dr. Vamseedhar Konati</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../../reviews/index.html">EN</a>
+      <a href="../index.html">&larr; హోమ్‌కు తిరిగి వెళ్ళండి</a>
+    </nav>
+  </div>
+</header>
+
+<section class="section">
+  <div class="container">
+    <p class="section-tag center">⭐ రోగుల సమీక్షలు</p>
+    <h2 class="center">అన్ని రోగుల సమీక్షలు</h2>
+    <p class="section-intro center">డా. వంశీధర్ కొనాటి రోగులు పంచుకున్న ప్రతి సమీక్ష.</p>
+    <div class="all-reviews-grid" id="allReviewsList">
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <h4>Lakshmi Narayana</h4>
+        <p class="review-text">డా. కొనాటి నా గాల్‌బ్లాడర్ సర్జరీని లాపరోస్కోపిక్‌గా నిర్వహించారు. తక్కువ నొప్పితో 2 రోజుల్లో ఇంటికి తిరిగి వచ్చాను. అద్భుతమైన డాక్టర్!</p>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <h4>Srinivasa Rao</h4>
+        <p class="review-text">హెర్నియా చికిత్స కోసం తిరుపతిలో అత్యుత్తమ సర్జన్. విధానాన్ని వివరించేటప్పుడు చాలా ఓపికగా ఉన్నారు మరియు రికవరీ వేగంగా జరిగింది.</p>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★☆</div>
+        <h4>Anonymous Patient</h4>
+        <p class="review-text">చాలా అనుభవజ్ఞులైన డాక్టర్, హీలియోస్ హాస్పిటల్స్‌లో సంప్రదింపు క్షుణ్ణంగా జరిగింది. కొంచెం వేచి ఉండాల్సి వచ్చినా విలువైనది.</p>
+      </div>
+    </div>
+    <p class="center" style="margin-top:30px;"><a href="../index.html#reviews" class="btn btn-primary">మీ సమీక్ష రాయండి</a></p>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>&copy; <span id="year"></span> Dr. Vamseedhar Konati. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Same read-only bridge used on the homepage; no size cap here since this page exists to show everything.
+const REVIEWS_API_URL = 'https://script.google.com/macros/s/AKfycbyP9epljIyMS1jtj9EImBIvA0vvnJAKdbLo7fMK7AUl4fNp0oCcJVZY3sR6ugvB-WaeBA/exec';
+const allReviewsList = document.getElementById('allReviewsList');
+const escapeHtml = (str) => String(str).replace(/[&<>"']/g, (c) => (
+  { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+));
+const MIN_REVIEW_TEXT_LENGTH = 15;
+const isLowQualityReview = (r) => {
+  const text = String(r.text || '').trim();
+  const name = String(r.name || '').trim();
+  if (text.length < MIN_REVIEW_TEXT_LENGTH) return true;
+  const junkPattern = /qa test|please delete|test review|automated|end-to-end test/i;
+  if (junkPattern.test(text) || junkPattern.test(name)) return true;
+  if (/^test$/i.test(name)) return true;
+  return false;
+};
+if (allReviewsList && REVIEWS_API_URL) {
+  fetch(REVIEWS_API_URL)
+    .then(res => res.json())
+    .then(reviews => {
+      const curated = Array.isArray(reviews) ? reviews.filter(r => !isLowQualityReview(r)) : [];
+      if (curated.length === 0) return;
+      allReviewsList.innerHTML = curated.map(r => {
+        const rating = Math.max(0, Math.min(5, Math.round(Number(r.rating) || 5)));
+        const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+        return `
+          <div class="review-card">
+            <div class="stars">${stars}</div>
+            <h4>${escapeHtml(r.name || 'Anonymous Patient')}</h4>
+            <p class="review-text">${escapeHtml(r.text || '')}</p>
+          </div>`;
+      }).join('');
+    })
+    .catch(() => { /* fetch failed — keep the static sample reviews already in the HTML */ });
+}
+</script>
+</body>
+</html>
