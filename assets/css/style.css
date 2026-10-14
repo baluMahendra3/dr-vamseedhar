@@ -20,17 +20,20 @@
 html { scroll-behavior: smooth; }
 body { overflow-x: hidden; max-width: 100%; }
 
-/* Medicine-capsule styled scrollbar: a rounded two-tone pill thumb, like a tablet */
-html { scrollbar-width: thin; scrollbar-color: var(--color-accent) var(--color-bg-alt); }
-::-webkit-scrollbar { width: 14px; }
+/* Medicine-capsule styled scrollbar: narrow pill-shaped thumb, pink/white like a real medicine capsule (💊) */
+html { scrollbar-width: thin; scrollbar-color: #ff6b81 var(--color-bg-alt); }
+::-webkit-scrollbar { width: 16px; }
 ::-webkit-scrollbar-track { background: var(--color-bg-alt); }
 ::-webkit-scrollbar-thumb {
-  border-radius: 20px;
+  width: 10px;
+  border-radius: 999px;
   border: 3px solid var(--color-bg-alt);
-  background: linear-gradient(to bottom, var(--color-accent) 0%, var(--color-accent) 50%, var(--color-primary) 50%, var(--color-primary) 100%);
+  background-clip: padding-box;
+  background-image: linear-gradient(to bottom, #ff6b81 0%, #ff6b81 48%, #ffffff 52%, #ffffff 100%);
+  box-shadow: inset 0 0 0 1px #d94c6a;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(to bottom, var(--color-accent) 0%, var(--color-accent) 50%, var(--color-primary-dark) 50%, var(--color-primary-dark) 100%);
+  background-image: linear-gradient(to bottom, #ff4d68 0%, #ff4d68 48%, #fff0f2 52%, #fff0f2 100%);
 }
 
 body {
