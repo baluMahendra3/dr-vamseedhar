@@ -18,7 +18,7 @@
 }
 
 html { scroll-behavior: smooth; }
-html, body { overflow-x: hidden; max-width: 100%; }
+body { overflow-x: hidden; max-width: 100%; }
 
 body {
   font-family: var(--font-body);
@@ -144,7 +144,9 @@ h2 { font-size: 2rem; margin-bottom: 20px; color: var(--color-primary-dark); }
 
 /* ========== Header ========== */
 .site-header {
-  position: static;
+  position: sticky;
+  top: 0;
+  z-index: 100;
   background: rgba(255, 255, 255, 0.95);
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
