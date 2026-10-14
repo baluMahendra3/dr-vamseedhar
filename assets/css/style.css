@@ -824,6 +824,64 @@ h2.center::after {
 }
 h2.center.is-visible::after { transform: translateX(-50%) scaleX(1); }
 
+/* ========== Custom Medical Cursor (desktop/mouse only) ========== */
+html.has-custom-cursor, html.has-custom-cursor body { cursor: none; }
+html.has-custom-cursor a, html.has-custom-cursor button,
+html.has-custom-cursor .btn, html.has-custom-cursor [role="button"] {
+  cursor: none;
+}
+html.has-custom-cursor input, html.has-custom-cursor textarea { cursor: text; }
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid var(--color-primary);
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%) scale(1);
+  transition: width 0.2s ease, height 0.2s ease, transform 0.15s ease, border-color 0.2s ease, opacity 0.2s ease;
+  will-change: transform;
+  opacity: 0;
+}
+html.has-custom-cursor .custom-cursor { opacity: 1; }
+.custom-cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.1s ease, opacity 0.2s ease;
+  opacity: 0;
+}
+html.has-custom-cursor .custom-cursor-dot { opacity: 1; }
+.custom-cursor-icon {
+  position: fixed;
+  top: 0;
+  left: 0;
+  font-size: 14px;
+  line-height: 1;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 10000;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+}
+html.has-custom-cursor .custom-cursor-icon { opacity: 1; }
+/* Ring expands over clickable elements */
+.custom-cursor.is-hovering { width: 54px; height: 54px; border-color: var(--color-accent); }
+/* Ring briefly contracts then springs back on click, like a pulse/heartbeat */
+.custom-cursor.is-clicking { transform: translate(-50%, -50%) scale(0.65); }
+/* Ring gently expands while the page is scrolling */
+.custom-cursor.is-scrolling { width: 42px; height: 42px; border-color: var(--color-primary); }
+
 /* ========== Responsive ========== */
 @media (max-width: 960px) {
   .hero-inner, .about-grid, .contact-grid { grid-template-columns: 1fr; }

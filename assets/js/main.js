@@ -117,3 +117,48 @@ document.querySelectorAll('.faq-item').forEach(item => {
   });
 });
 
+// ========== Custom Medical Cursor ==========
+// Only on real mouse/trackpad devices — leave touchscreens with their native behavior.
+if (window.matchMedia('(pointer: fine)').matches) {
+  const ring = document.createElement('div');
+  ring.className = 'custom-cursor';
+  const dot = document.createElement('div');
+  dot.className = 'custom-cursor-dot';
+  const icon = document.createElement('div');
+  icon.className = 'custom-cursor-icon';
+  icon.textContent = '🩺';
+  document.body.append(ring, dot, icon);
+  document.documentElement.classList.add('has-custom-cursor');
+
+  const moveCursor = (x, y) => {
+    ring.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)${ring.classList.contains('is-clicking') ? ' scale(0.65)' : ''}`;
+    dot.style.transform = `translate(${x}px, ${y}px)`;
+    icon.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)`;
+  };
+
+  document.addEventListener('mousemove', (e) => moveCursor(e.clientX, e.clientY));
+
+  const hoverTargets = 'a, button, .btn, [role="button"], input, textarea, select, .faq-question';
+  document.addEventListener('mouseover', (e) => {
+    if (e.target.closest(hoverTargets)) ring.classList.add('is-hovering');
+  });
+  document.addEventListener('mouseout', (e) => {
+    if (e.target.closest(hoverTargets)) ring.classList.remove('is-hovering');
+  });
+
+  // Tablet "press" pulse: shrink on press, spring back on release
+  document.addEventListener('mousedown', () => ring.classList.add('is-clicking'));
+  document.addEventListener('mouseup', () => ring.classList.remove('is-clicking'));
+
+  // Gentle expand while the page is scrolling, settles back when scrolling stops
+  let scrollTimer;
+  window.addEventListener('scroll', () => {
+    ring.classList.add('is-scrolling');
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(() => ring.classList.remove('is-scrolling'), 250);
+  }, { passive: true });
+
+  document.addEventListener('mouseleave', () => { ring.style.opacity = '0'; dot.style.opacity = '0'; icon.style.opacity = '0'; });
+  document.addEventListener('mouseenter', () => { ring.style.opacity = ''; dot.style.opacity = ''; icon.style.opacity = ''; });
+}
+
