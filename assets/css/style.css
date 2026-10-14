@@ -20,6 +20,9 @@
 html { scroll-behavior: smooth; }
 body { overflow-x: hidden; max-width: 100%; }
 
+/* Keeps anchor-linked sections (and the contact form) from landing hidden under the sticky header */
+section[id], #contactForm { scroll-margin-top: 90px; }
+
 /* Medicine-capsule styled scrollbar: narrow pill-shaped thumb, pink/white like a real medicine capsule (💊) */
 html { scrollbar-width: thin; scrollbar-color: #ff6b81 var(--color-bg-alt); }
 ::-webkit-scrollbar { width: 16px; }
