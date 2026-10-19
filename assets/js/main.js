@@ -236,6 +236,15 @@ window.addEventListener('resize', () => {
 initReviewsSlider();
 loadReviews();
 
+// QR-code landing: lazy images and async reviews shift the layout after the browser's own anchor jump, so re-align on load.
+if (location.hash === '#write-review') {
+  const alignToReviewForm = () => {
+    const el = document.getElementById('write-review');
+    if (el) el.scrollIntoView({ behavior: 'auto', block: 'start' });
+  };
+  window.addEventListener('load', () => { alignToReviewForm(); setTimeout(alignToReviewForm, 800); });
+}
+
 // ========== Generic carousel factory, reused for Expertise/Recognition/Gallery/Health Tips (static content, no reload needed) ==========
 const createCarousel = (sliderId, trackId, prevId, nextId, dotsId, autoplayMs = 5000) => {
   const sliderEl = document.getElementById(sliderId);
