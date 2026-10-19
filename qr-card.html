@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Review QR Card | Dr. Vamseedhar Konati</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root { --primary:#0f6e6e; --dark:#0a4f4f; --accent:#e8a33d; --bg:#f4f9f9; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Poppins', sans-serif; background: #dfeaea; color: #22313a; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 24px 12px 40px; }
+
+  .toolbar { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; justify-content: center; }
+  .toolbar button, .toolbar a { font: 600 0.9rem 'Poppins', sans-serif; padding: 10px 22px; border-radius: 999px; border: 0; cursor: pointer; text-decoration: none; background: var(--primary); color: #fff; }
+  .toolbar a.alt { background: #fff; color: var(--primary); border: 2px solid var(--primary); }
+
+  /* Card: 105mm x 148mm (A6). Scales up when printed on A4 via the print rules below. */
+  .card { width: 420px; max-width: 100%; background: #fff; border-radius: 22px; padding: 12px; box-shadow: 0 18px 50px rgba(10, 79, 79, 0.25); background-image: linear-gradient(#fff, #fff), linear-gradient(135deg, var(--primary), var(--accent), var(--primary)); background-origin: border-box; background-clip: padding-box, border-box; border: 6px solid transparent; }
+  .card-inner { border: 2px solid var(--accent); border-radius: 14px; padding: 26px 24px 22px; text-align: center; background: linear-gradient(180deg, var(--bg) 0%, #fff 38%); position: relative; }
+  .card-inner::before, .card-inner::after { content: ''; position: absolute; width: 28px; height: 28px; border: 3px solid var(--primary); }
+  .card-inner::before { top: 8px; left: 8px; border-right: 0; border-bottom: 0; border-top-left-radius: 8px; }
+  .card-inner::after { bottom: 8px; right: 8px; border-left: 0; border-top: 0; border-bottom-right-radius: 8px; }
+
+  .photo { width: 128px; height: 128px; border-radius: 50%; margin: 0 auto 14px; padding: 4px; background: linear-gradient(135deg, var(--primary), var(--accent)); }
+  .photo img { width: 100%; height: 100%; object-fit: cover; object-position: center top; border-radius: 50%; border: 3px solid #fff; display: block; }
+
+  h1 { font-family: 'Merriweather', serif; font-size: 1.45rem; color: var(--dark); line-height: 1.25; }
+  .role { color: var(--primary); font-weight: 600; font-size: 0.9rem; margin-top: 4px; }
+  .sub { color: #566a73; font-size: 0.78rem; margin-top: 2px; }
+
+  .divider { display: flex; align-items: center; gap: 10px; margin: 16px 0 12px; color: var(--accent); font-size: 0.95rem; }
+  .divider::before, .divider::after { content: ''; flex: 1; height: 2px; background: linear-gradient(90deg, transparent, var(--accent)); }
+  .divider::after { background: linear-gradient(270deg, transparent, var(--accent)); }
+
+  .cta { font-weight: 700; font-size: 1.1rem; color: var(--dark); }
+  .cta small { display: block; font-weight: 400; font-size: 0.8rem; color: #566a73; margin-top: 2px; }
+
+  .qr-frame { width: 236px; height: 236px; margin: 14px auto 12px; padding: 14px; background: #fff; border-radius: 16px; border: 4px solid var(--primary); box-shadow: 0 0 0 4px #fff, 0 0 0 6px var(--accent), 0 10px 24px rgba(15, 110, 110, 0.2); }
+  .qr-frame img { width: 100%; height: 100%; display: block; image-rendering: pixelated; }
+
+  .stars { color: var(--accent); font-size: 1.4rem; letter-spacing: 4px; }
+  .steps { font-size: 0.78rem; color: #566a73; margin-top: 4px; }
+
+  .details { margin-top: 16px; padding: 12px 14px; background: var(--primary); color: #fff; border-radius: 12px; font-size: 0.82rem; line-height: 1.7; }
+  .details strong { color: #ffd98f; }
+  .url { font-weight: 700; font-size: 1rem; letter-spacing: 0.3px; }
+
+  @media print {
+    @page { size: A5 portrait; margin: 0; }
+    body { background: #fff; padding: 0; display: block; }
+    .toolbar { display: none; }
+    .card { box-shadow: none; width: 148mm; max-width: none; margin: 0 auto; border-radius: 0; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .card, .card * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <button type="button" onclick="window.print()">Print / Save as PDF</button>
+  <a class="alt" href="assets/images/review-qr.svg" download="dr-vamseedhar-review-qr.svg">Download QR only</a>
+</div>
+
+<main class="card">
+  <div class="card-inner">
+    <div class="photo"><img src="assets/images/doctor-hero.png" alt="Dr. Vamseedhar Konati"></div>
+    <h1>Dr. Vamseedhar Konati</h1>
+    <p class="role">General &amp; Laparoscopic Surgeon</p>
+    <p class="sub">20+ Years Experience &bull; 10,000+ Surgeries</p>
+
+    <div class="divider">&#10022;</div>
+
+    <p class="cta">Scan to Share Your Review
+      <small>Your feedback helps other patients</small>
+    </p>
+
+    <div class="qr-frame">
+      <img src="assets/images/review-qr.svg" alt="QR code to write a review for Dr. Vamseedhar Konati">
+    </div>
+
+    <div class="stars" aria-hidden="true">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+    <p class="steps">Scan &rarr; Rate &rarr; Write &rarr; Post</p>
+
+    <div class="details">
+      <div class="url">abouts.me</div>
+      <div><strong>Mother Hospital</strong> &amp; <strong>Helios Hospitals</strong>, Tirupati</div>
+      <div>&#128222; +91 99123 08801</div>
+    </div>
+  </div>
+</main>
+
+</body>
+</html>
