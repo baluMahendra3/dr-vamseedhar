@@ -650,6 +650,47 @@ h2 { font-size: 2rem; margin-bottom: 20px; color: var(--color-primary-dark); }
 .review-card .review-date { font-size: 0.78rem; color: var(--color-muted); margin-bottom: 10px; }
 .review-card p.review-text { color: var(--color-text); font-size: 0.88rem; }
 
+/* Average rating out of 5, shown above the review cards */
+.reviews-rating-summary { margin: -6px 0 20px; font-size: 0.95rem; color: var(--color-text); }
+.reviews-rating-summary strong { font-size: 1.2rem; color: var(--color-primary-dark); }
+.reviews-rating-stars { color: var(--color-accent); letter-spacing: 1px; margin: 0 4px; }
+.reviews-rating-count { color: var(--color-muted); }
+
+/* Small owner-only toggle to reveal per-review moderation controls */
+.reviews-admin-toggle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.2s ease;
+}
+.reviews-admin-toggle:hover { opacity: 1; }
+.reviews-admin-toggle.active { opacity: 1; color: #fff; background: var(--color-primary); border-color: var(--color-primary); }
+.reviews-page-section .container { position: relative; }
+
+/* Owner-only spam/delete flags rendered on each review card in admin mode */
+.review-admin-actions { display: flex; gap: 8px; margin-top: 14px; }
+.review-flag-btn {
+  font-size: 0.78rem;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--color-border);
+  background: #fff;
+  color: var(--color-text);
+  cursor: pointer;
+}
+.review-flag-btn:hover { border-color: var(--color-accent); }
+.review-flag-btn.review-flag-delete:hover { border-color: #c0392b; color: #c0392b; }
+.review-flag-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
 /* Carousel controls */
 .slider-arrow {
   position: absolute;

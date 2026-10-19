@@ -33,28 +33,97 @@ const isLowQualityReview = (r) => {
   if (/^test$/i.test(name)) return true;
   return false;
 };
+// ========== Reviews admin: lets the site owner hide spam or permanently delete a review ==========
+const REVIEWS_ADMIN_KEY_STORAGE = 'reviewsAdminKey';
+const getReviewsAdminKey = () => sessionStorage.getItem(REVIEWS_ADMIN_KEY_STORAGE) || '';
+const isReviewsAdmin = () => !!getReviewsAdminKey();
+const moderateReview = (id, action) => fetch(REVIEWS_API_URL, {
+  method: 'POST',
+  headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+  body: JSON.stringify({ action, id, adminKey: getReviewsAdminKey() })
+}).then(res => res.json());
+const wireReviewAdminButtons = (container, onDone) => {
+  if (!container) return;
+  container.querySelectorAll('.review-flag-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const { id, action } = btn.dataset;
+      const confirmMsg = action === 'delete'
+        ? 'Permanently delete this review? This cannot be undone.'
+        : 'Hide this review as spam? It will disappear from the site.';
+      if (!window.confirm(confirmMsg)) return;
+      btn.disabled = true;
+      try {
+        const result = await moderateReview(id, action);
+        if (result && result.success) onDone();
+        else alert('Action failed: ' + (result && result.error ? result.error : 'check your admin key.'));
+      } catch (err) {
+        alert('Action failed. Please try again.');
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  });
+};
+const reviewsAdminToggleBtn = document.getElementById('reviewsAdminToggle');
+if (reviewsAdminToggleBtn) {
+  reviewsAdminToggleBtn.addEventListener('click', () => {
+    if (isReviewsAdmin()) {
+      sessionStorage.removeItem(REVIEWS_ADMIN_KEY_STORAGE);
+    } else {
+      const key = window.prompt('Enter the admin key to manage reviews:');
+      if (!key) return;
+      sessionStorage.setItem(REVIEWS_ADMIN_KEY_STORAGE, key);
+    }
+    reviewsAdminToggleBtn.classList.toggle('active', isReviewsAdmin());
+    loadReviews();
+  });
+  reviewsAdminToggleBtn.classList.toggle('active', isReviewsAdmin());
+}
+const reviewsSummaryEl = document.getElementById('reviewsRatingSummary');
+const renderReviewsSummary = (curated) => {
+  if (!reviewsSummaryEl) return;
+  if (!curated.length) { reviewsSummaryEl.hidden = true; return; }
+  const avg = curated.reduce((sum, r) => sum + (Number(r.rating) || 0), 0) / curated.length;
+  const rounded = Math.round(avg * 10) / 10;
+  const fullStars = Math.round(avg);
+  const stars = '★'.repeat(fullStars) + '☆'.repeat(5 - fullStars);
+  reviewsSummaryEl.innerHTML =
+    `<strong>${rounded.toFixed(1)}</strong> out of 5 <span class="reviews-rating-stars">${stars}</span> ` +
+    `<span class="reviews-rating-count">based on ${curated.length} review${curated.length === 1 ? '' : 's'}</span>`;
+  reviewsSummaryEl.hidden = false;
+};
 const renderReviews = (reviews) => {
   if (!reviewsList || !Array.isArray(reviews)) return;
   const curated = reviews.filter(r => !isLowQualityReview(r));
+  renderReviewsSummary(curated);
   if (curated.length === 0) return;
+  const admin = isReviewsAdmin();
   const shown = curated.slice(0, MAX_REVIEWS_SHOWN);
   reviewsList.innerHTML = shown.map(r => {
     const rating = Math.max(0, Math.min(5, Math.round(Number(r.rating) || 5)));
     const stars = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+    const adminActions = admin ? `
+        <div class="review-admin-actions">
+          <button type="button" class="review-flag-btn" data-action="spam" data-id="${escapeHtml(r.id || '')}">🚩 Spam</button>
+          <button type="button" class="review-flag-btn review-flag-delete" data-action="delete" data-id="${escapeHtml(r.id || '')}">🗑 Delete</button>
+        </div>` : '';
     return `
       <div class="review-card">
         <div class="stars">${stars}</div>
         <h4>${escapeHtml(r.name || 'Anonymous Patient')}</h4>
         <p class="review-text">${escapeHtml(r.text || '')}</p>
+        ${adminActions}
       </div>`;
   }).join('');
   const moreWrap = document.getElementById('reviewsMoreWrap');
   if (moreWrap) moreWrap.hidden = curated.length <= MAX_REVIEWS_SHOWN;
+  wireReviewAdminButtons(reviewsList, loadReviews);
   initReviewsSlider();
 };
 const loadReviews = () => {
   if (!reviewsList || !REVIEWS_API_URL) return;
-  fetch(REVIEWS_API_URL)
+  const url = isReviewsAdmin() ? `${REVIEWS_API_URL}?adminKey=${encodeURIComponent(getReviewsAdminKey())}` : REVIEWS_API_URL;
+  fetch(url)
     .then(res => res.json())
     .then(renderReviews)
     .catch(() => { /* fetch failed — keep the static sample reviews already in the HTML */ });

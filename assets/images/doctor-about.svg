@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 420">
-<rect width="560" height="420" rx="20" fill="#eaf5f5"/>
-<circle cx="280" cy="160" r="70" fill="#0f6e6e"/>
-<path d="M170 400c0-70 50-120 110-120s110 50 110 120" fill="#0f6e6e"/>
-<text x="280" y="380" font-family="Poppins, sans-serif" font-size="18" fill="#0a4f4f" text-anchor="middle">Clinic Photo Placeholder</text>
-</svg>
